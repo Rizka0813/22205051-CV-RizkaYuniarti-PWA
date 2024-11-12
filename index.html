@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern and colorful CV website with PWA feature">
+    <title>CV</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+   <!-- Navigation Menu -->
+   <nav class="navbar">
+    <div class="container">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div>
+        <ul class="nav-links" id="dropdownMenu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact Me</a></li>
+        </ul>
+    </div>
+</nav>
+
+    <!-- Header Section -->
+    <header id="home">
+        <div class="container">
+            <h1>Rizka Yuniarti</h1>
+            <p>Informatics Engineering Student</p>
+        </div>
+    </header>
+    
+    
+    <section id="about" class="section">
+        <div class="container">
+            <img src="foto/me.jpeg" alt="Your Photo" class="profile-photo">
+            <div class="social-media">
+                <a href="https://www.instagram.com/rizkaaa0813" target="_blank"><img src="foto/logoig.png" alt="Instagram"></a>
+                <a href="tel:+6281317613731"><img src="foto/icontak.png" alt="Phone"></a>
+                <a href="mailto:rizkayuniartiii@gmail.com"><img src="foto/emailicon.jpg" alt="Email"></a>
+                <a href="https://github.com/rizka0813" target="_blank">
+                    <img src="foto/github.png" alt="GitHub"></a>
+            </div>
+            <h2>About Me</h2>
+            <ul>
+            <li><p>Hello my name is Rizka Yuniarti. I’m an Informatics Engineering student with a passion for web development. 
+                I enjoy learning new technologies and am always looking for new challenges to grow my skills, 
+                passionate about technology and problem-solving. 
+                I am eager to learn and apply my skills to real-world challenges. 
+                </p></li>
+            <li><p>Besides my studies, I enjoy exploring new things in the tech world, 
+                especially those that connect to everyday life. My curiosity drives me to keep expanding my knowledge, 
+                whether it's through classes, online seminars, or hands-on projects. I’m also known for my love of snacks, 
+                which keeps me fueled through all the coding sessions!</p></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+<section id="education" class="section section-light">
+    <div class="container">
+        <h2>Education</h2>
+        <div class="education-item">
+            <h3>School of Management Informatics and Computer (STMIK YMI TEGAL)</h3>
+            <p>Informatics Engineering</p>
+            <p>2022 - Present</p>
+        </div>
+        <div class="education-item">
+            <h3>Vocational High School (SMK Nurjamilah Bekasi)</h3>
+            <p>Software Engineering</p>
+            <p>2018 - 2021</p>
+        </div>
+    </div>
+</section>
+    
+    <section id="skills" class="section section-light">
+        <div class="container">
+            <h2>Skills</h2>
+            <ul>
+                <li>JavaScript, Python, Java</li>
+                <li>Web Development (HTML, CSS, JavaScript)</li>
+                <li>Database Management (MySQL)</li>
+                <li>Microsoft Office</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container">
+            <h2>Experience</h2>
+            <ul>
+                <li>BEM (Badan Eksekutif Mahasiswa)</li>
+                <li>2022-2023</li>
+                <li>Admin Online Shop</li>
+                <li>2021-2022</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact" class="section section-light">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+    
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+    
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+    
+                <button type="submit">Submit</button>
+            </form>
+    
+            <h3>Comments</h3>
+            <div id="commentsSection">
+                <!-- Comments will be displayed here -->
+            </div>
+        </div>
+    </section>
+    
+
+    <footer>
+        <p>&copy; 2024 Rizka Yuniarti</p>
+    </footer>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+          getMessaging,
+          getToken,
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+  
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBw8JOxP60nS2IiecizejPHsysl162ls18",
+            authDomain: "cvrizka-d2cac.firebaseapp.com",
+            projectId: "cvrizka-d2cac",
+            storageBucket: "cvrizka-d2cac.firebasestorage.app",
+            messagingSenderId: "950329874155",
+            appId: "1:950329874155:web:e83dcecc5d149b1e0e10ae",
+            measurementId: "G-1CSN1LQTR5"
+        };
+  
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+  
+        navigator.serviceWorker.register("service-worker.js").then((registration) => {
+          getToken(messaging, {
+            serviceWorkerRegistration: registration,
+            vapidKey:
+            "BN7R8TVYmylU8cgRdFWTGmbOZuGpe-eqoElSp0Btlts5MuvGZxkxarv8gCDPtNOTdlcjsatsC_EPNL3MOyq2lcQ",
+          })
+            .then((currentToken) => {
+              if (currentToken) {
+                console.log("Token is: " + currentToken);
+                // Send the token to your server and update the UI if necessary
+                // ...
+              } else {
+                // Show permission request UI
+                console.log(
+                  "No registration token available. Request permission to generate one."
+                );
+                // ...
+              }
+            })
+            .catch((err) => {
+              console.log("An error occurred while retrieving token. ", err);
+              // ...
+            });
+        });
+      </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
